@@ -1,15 +1,28 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Jogador player1;
+        player1 = new Jogador("Henrique Cazarim", "460.349.478-55",
+                "fotoDoCorinthians.jpeg", "hcazarim@yahoo.com");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        if (player1.validarCPF(player1.getCpf())){
+            System.out.println("CPF válido.");
+        } else {
+            System.out.println("CPF inválido.");
         }
+
+        if (player1.validarEmail(player1.getEmail())){
+            System.out.println("Email válido.");
+        } else {
+            System.out.println("Email inválido.");
+        }
+
+        System.out.println(player1);
+
+        Peca peca1;
+        peca1 = new Peca("Preto", 0);
+
+        CartaSorte carta1;
+        carta1 = new CartaSorte(1, "Incêndio", 0,
+                -1, 35000, "", 0, "");
     }
 }
