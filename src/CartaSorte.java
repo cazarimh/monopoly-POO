@@ -1,6 +1,4 @@
-public class CartaSorte {
-    private int id;
-    private String descricao;
+public class CartaSorte extends Carta{
     private int movimento;
     private int efeito;
     private float valor;
@@ -9,10 +7,8 @@ public class CartaSorte {
     private String restricao;
 
     // Método Construtor
-    public CartaSorte(int id, String descricao, int movimento, int efeito,
-                      float valor, String acao, int tempo, String restricao){
-        this.id = id;
-        this.descricao = descricao;
+    public CartaSorte(String descricao, int movimento, int efeito, float valor, String acao, int tempo, String restricao){
+        super(descricao);
         this.movimento = movimento;
         this.efeito = efeito;
         this.valor = valor;
@@ -22,22 +18,6 @@ public class CartaSorte {
     }
 
     // Métodos Getters e Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public int getMovimento() {
         return movimento;
     }

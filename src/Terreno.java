@@ -5,8 +5,8 @@ public class Terreno extends Propriedade{
     private boolean hotel = false;
 
     // Método Construtor
-    public Terreno(String nome, int preco, int aluguel, int valorCasa, int valorHotel){
-        super(nome, preco, aluguel);
+    public Terreno(String nome, String descricao, int preco, int aluguel, int valorCasa, int valorHotel){
+        super(nome, descricao, preco, aluguel);
         this.valorCasa = valorCasa;
         this.valorHotel = valorHotel;
     }
@@ -54,7 +54,7 @@ public class Terreno extends Propriedade{
                 "Comprar Hotel: R$ " + getValorHotel() + "\n" +
                 "Aluguel: R$ ";
 
-        return getProprietario() == 0 ? info + getAluguel() : info + calcularAluguel() + "\nID do Proprietário: " + getProprietario();
+        return getDono() == null ? info + getAluguel() : info + calcularAluguel() + "\nProprietário: " + getDono().getNome();
     }
 
     /* Método comprarCasa
@@ -62,8 +62,10 @@ public class Terreno extends Propriedade{
             se sim, soma um no numero de casas (numeroCasas) e retorna true
             senão, retorna false
     */
-    public boolean comprarCasa(){
-        if (numeroCasas < 4){
+    public boolean comprarCasa(Jogador comprador){
+        if (this.getDono() == comprador && comprador.getDinheiro() >= valorCasa && numeroCasas < 4) {
+            int saldo = comprador.getDinheiro() - valorCasa;
+            comprador.setDinheiro(saldo);
             numeroCasas++;
             return true;
         }
@@ -75,8 +77,10 @@ public class Terreno extends Propriedade{
             se sim, soma um no numero de casas (numeroCasas), implementa um hotel (setHotel(true)) e retorna true
             senão, retorna false
     */
-    public boolean comprarHotel(){
-        if (numeroCasas == 4){
+    public boolean comprarHotel(Jogador comprador){
+        if (this.getDono() == comprador && comprador.getDinheiro() >= valorHotel && numeroCasas == 4){
+            int saldo = comprador.getDinheiro() - valorHotel;
+            comprador.setDinheiro(saldo);
             hotel = true;
             numeroCasas++;
             return true;
@@ -89,8 +93,6 @@ public class Terreno extends Propriedade{
         pela quantidade de casas ou pelo valor do hotel
     */
     public int calcularAluguel(){
-        int aluguelBase = getAluguel();
-
-        return hotel ? (5 * aluguelBase) : (this.numeroCasas * aluguelBase);
+        return hotel ? (6 * getAluguel()) : ((this.numeroCasas+1) * getAluguel());
     }
 }

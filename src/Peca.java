@@ -1,11 +1,10 @@
 public class Peca {
     private String cor;
-    private int posicao;
+    private int posicao = 0;
 
     // Método Construtor
-    public Peca(String cor, int posicao){
+    public Peca(String cor){
         this.cor = cor;
-        this.posicao = posicao;
     }
 
     // Métodos Getters e Setters

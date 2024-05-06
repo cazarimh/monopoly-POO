@@ -1,8 +1,8 @@
 public class ServicoPublico extends Propriedade {
 
     // Método Construtor
-    public ServicoPublico(String nome, int preco, int aluguel){
-        super(nome, preco, aluguel);
+    public ServicoPublico(String nome, String descricao, int preco, int aluguel){
+        super(nome, descricao, preco, aluguel);
     }
 
     /* Método toString
@@ -13,7 +13,7 @@ public class ServicoPublico extends Propriedade {
                 "Preço: R$ " + getPreco() + "\n" +
                 "Taxa: ";
 
-        return getProprietario() == 0 ? info + "soma dos dados * " + getAluguel() : info + "R$ " + calcularAluguel(5) + "\nID do Proprietário: " + getProprietario();
+        return getDono() == null ? info + "soma dos dados * " + getAluguel() : info + "R$ " + calcularAluguel(5) + "\nProprietário: " + getDono().getNome();
     }
 
     /* Método calcularAluguel

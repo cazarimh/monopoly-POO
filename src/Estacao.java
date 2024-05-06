@@ -1,8 +1,8 @@
 public class Estacao extends Propriedade{
 
     // Método Construtor
-    public Estacao(String nome, int preco, int aluguel){
-        super(nome, preco, aluguel);
+    public Estacao(String nome, String descricao, int preco, int aluguel){
+        super(nome, descricao, preco, aluguel);
     }
 
     /* Método toString
@@ -13,7 +13,7 @@ public class Estacao extends Propriedade{
                 "Preço: R$ " + getPreco() + "\n" +
                 "Passe: R$ " + getAluguel();
 
-        return getProprietario() == 0 ? info : info + "\nID do Proprietário: " + getProprietario();
+        return getDono() == null ? info : info + "\nProprietário: " + getDono().getNome();
     }
 
     /* Método calcularAluguel
