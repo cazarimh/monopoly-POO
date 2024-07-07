@@ -10,6 +10,7 @@ public class Jogador {
     private String foto;
     private ArrayList<Carta> cartas = new ArrayList<Carta>();
     private Peca peca = null;
+    private int rodadasSemJogar = 0;
 
     // Método Construtor
     public Jogador(String nome, String cpf, String email, String foto) {
@@ -85,9 +86,17 @@ public class Jogador {
         this.peca = peca;
     }
 
+    public int getRodadasSemJogar() {
+        return rodadasSemJogar;
+    }
+
+    public void setRodadasSemJogar(int rodadasSemJogar) {
+        this.rodadasSemJogar = rodadasSemJogar;
+    }
+
     /* Método addCarta
-        Adiciona uma carta ao array do jogador
-    */
+                    Adiciona uma carta ao array do jogador
+                */
     public void addCarta(Carta carta){
         cartas.add(carta);
     }
@@ -99,21 +108,50 @@ public class Jogador {
         return cartas.remove(carta);
     }
 
+    public void aumentarSaldo(int valor) {
+        setDinheiro(dinheiro + valor);
+    }
+
+    public boolean diminuirSaldo(int valor) {
+        if (dinheiro >= valor) {
+            setDinheiro(dinheiro - valor);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean comprarPropriedade(Propriedade propriedade) {
+        if (diminuirSaldo(propriedade.getPreco())) {
+            propriedade.setDono(this);
+            addCarta(propriedade);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean pagarAluguel(Propriedade propriedade) {
+        if (diminuirSaldo(propriedade.calcularAluguel())) {
+            propriedade.getDono().aumentarSaldo(propriedade.calcularAluguel());
+            return true;
+        }
+        return false;
+    }
+
     /* Método toString
         Retorna uma string contendo os dados do jogador
     */
     public String toString() {
-        String infoBasica = "Nome: " + this.nome + "\n" +
-                "CPF: " + this.cpf + "\n" +
-                "Email: " + this.email + "\n" +
-                "ID do jogador: " + this.id;
-
-        String infoJogo = "Nome: " + this.nome + "\n" +
-                "ID do jogador: " + this.id + "\n" +
-                "Cor da peça do jogador: " + this.peca.getCor() + "\n" +
-                "Posição no tabuleiro: " + this.peca.getPosicao() + "\n" +
-                "Saldo do jogador: " + this.getDinheiro();
-
-        return this.peca == null ? infoBasica : infoJogo;
+        if (peca == null) {
+            return "Nome: " + this.nome + "\n" +
+                    "CPF: " + this.cpf + "\n" +
+                    "Email: " + this.email + "\n" +
+                    "ID do jogador: " + this.id;
+        } else {
+            return  "Nome: " + this.nome + "\n" +
+                    "ID do jogador: " + this.id + "\n" +
+                    "Cor da peça do jogador: " + this.peca.getCor() + "\n" +
+                    "Posição no tabuleiro: " + this.peca.getPosicao() + "\n" +
+                    "Saldo do jogador: " + this.getDinheiro();
+        }
     }
 }

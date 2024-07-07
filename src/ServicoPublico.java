@@ -11,15 +11,15 @@ public class ServicoPublico extends Propriedade {
     public String toString(){
         String info = "--- " + getNome() + " ---" + "\n" +
                 "Preço: R$ " + getPreco() + "\n" +
-                "Taxa: ";
+                "Taxa: soma dos dados * R$ 20";
 
-        return getDono() == null ? info + "soma dos dados * " + getAluguel() : info + "R$ " + calcularAluguel(5) + "\nProprietário: " + getDono().getNome();
+        return getDono() == null ? info : info + "\nProprietário: " + getDono().getNome();
     }
 
     /* Método calcularAluguel
         Retorna o aluguel multiplicado pelo valor dos dados
     */
-    public int calcularAluguel(int dados){
-        return dados * this.getAluguel();
+    public int calcularAluguel(){
+        return Tabuleiro.getValorDados() * this.getAluguel();
     }
 }

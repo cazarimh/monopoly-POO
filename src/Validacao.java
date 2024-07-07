@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Validacao {
 
     /* Método validarCPF
@@ -98,5 +100,60 @@ public class Validacao {
             }
         }
         return false;
+    }
+
+    public static String receberEntrada(String mensagem, String tipo) {
+
+        Scanner input = new Scanner(System.in);
+        String entrada;
+
+        while (true){
+            System.out.print(mensagem);
+            entrada = input.nextLine();
+            if (validarEntrada(entrada, tipo)) {
+                break;
+            }
+        }
+
+        return entrada;
+    }
+
+    private static boolean validarEntrada(String entrada, String tipo) {
+        if (tipo.equals("int")) {
+            try {
+                Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.err.println("Entrada inválida, tente novamente.");
+                return false;
+            }
+            return true;
+        } else if (tipo.equals("double")) {
+            try {
+                Double.parseDouble(entrada);
+            } catch (NumberFormatException e) {
+                System.err.println("Entrada inválida, tente novamente.");
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isPropriedade(Carta casaAtual) {
+        try {
+            Propriedade p = (Propriedade) casaAtual;
+            return true;
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    public static boolean isTerreno(Propriedade propriedadeAtual) {
+        try {
+            Terreno t = (Terreno) propriedadeAtual;
+            return true;
+        } catch (ClassCastException e) {
+            return false;
+        }
     }
 }

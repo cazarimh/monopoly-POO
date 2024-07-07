@@ -1,4 +1,4 @@
-public class Propriedade extends Carta{
+public abstract class Propriedade extends Carta{
     private String nome;
     private int preco;
     private int aluguel;
@@ -39,7 +39,5 @@ public class Propriedade extends Carta{
     /* Método calcularAluguel
         Retorna o aluguel
     */
-    public int calcularAluguel(){
-        return aluguel;
-    }
+    public abstract int calcularAluguel();
 }

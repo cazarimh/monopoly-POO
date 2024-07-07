@@ -1,20 +1,22 @@
 public class CartaSorte extends Carta{
     private int movimento;
-    private int efeito;
-    private float valor;
+//    private int efeito; PARAMETRO SUBSTITUIDO PELO TIPO DA CARTA
+    private int valor;
     private String acao;
     private int tempo;
     private String restricao;
+    private TipoCarta tipo;
 
     // Método Construtor
-    public CartaSorte(String descricao, int movimento, int efeito, float valor, String acao, int tempo, String restricao){
+    public CartaSorte(String descricao, int movimento,/* int efeito,*/ int valor, String acao, int tempo, String restricao, TipoCarta tipo){
         super(descricao);
         this.movimento = movimento;
-        this.efeito = efeito;
+        /*this.efeito = efeito;*/
         this.valor = valor;
         this.acao = acao;
         this.tempo = tempo;
         this.restricao = restricao;
+        this.tipo = tipo;
     }
 
     // Métodos Getters e Setters
@@ -26,19 +28,19 @@ public class CartaSorte extends Carta{
         this.movimento = movimento;
     }
 
-    public int getEfeito() {
+    /*public int getEfeito() {
         return efeito;
     }
 
     public void setEfeito(int efeito) {
         this.efeito = efeito;
-    }
+    }*/
 
-    public float getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
@@ -64,5 +66,26 @@ public class CartaSorte extends Carta{
 
     public void setRestricao(String restricao) {
         this.restricao = restricao;
+    }
+
+    public void setTipo(TipoCarta tipo) {
+        this.tipo = tipo;
+    }
+
+    public TipoCarta getTipo() {
+        return tipo;
+    }
+
+    public void executaAcao(Jogador jogador) {
+        if (movimento == 0) {
+            if (tipo == TipoCarta.SORTE) {
+                jogador.aumentarSaldo(valor);
+            } else {
+                jogador.diminuirSaldo(valor);
+            }
+        } else if (movimento == 2) {
+            jogador.getPeca().setPosicao(Tabuleiro.getCasasTabuleiro().indexOf(Tabuleiro.ferias));
+            jogador.setRodadasSemJogar(2);
+        }
     }
 }

@@ -1,0 +1,31 @@
+--- JOGADORES ---
+Nome: Henrique
+ID do jogador: 0
+Cor da peça do jogador: Preto
+Posição no tabuleiro: 4
+Saldo do jogador: 2438
+
+Nome: Maria Eduarda
+ID do jogador: 1
+Cor da peça do jogador: Branco
+Posição no tabuleiro: 3
+Saldo do jogador: 2408
+
+--- PROPRIEDADES ---
+--- CPFL ---
+Preço: R$ 120
+Taxa: soma dos dados * R$ 20
+
+--- Estação Corinthians-Itaquera ---
+Preço: R$ 150
+Passe: R$ 15
+Proprietário: Maria Eduarda
+
+--- São Paulo ---
+Preço: R$ 220
+Comprar Casa: R$ 15
+Comprar Hotel: R$ 20
+Aluguel: R$ 40
+Proprietário: Henrique
+
+Vencedor: Henrique
