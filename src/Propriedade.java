@@ -36,8 +36,8 @@ public abstract class Propriedade extends Carta{
         this.aluguel = aluguel;
     }
 
-    /* Método calcularAluguel
-        Retorna o aluguel
-    */
+    /**
+     * Método abstrato para implementação nas classes herdeiras.
+     */
     public abstract int calcularAluguel();
 }

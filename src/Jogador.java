@@ -94,52 +94,6 @@ public class Jogador {
         this.rodadasSemJogar = rodadasSemJogar;
     }
 
-    /* Método addCarta
-                    Adiciona uma carta ao array do jogador
-                */
-    public void addCarta(Carta carta){
-        cartas.add(carta);
-    }
-
-    /* Método removeCarta
-        Remove carta do array do jogador se ela existir
-    */
-    public boolean removeCarta(Carta carta){
-        return cartas.remove(carta);
-    }
-
-    public void aumentarSaldo(int valor) {
-        setDinheiro(dinheiro + valor);
-    }
-
-    public boolean diminuirSaldo(int valor) {
-        if (dinheiro >= valor) {
-            setDinheiro(dinheiro - valor);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean comprarPropriedade(Propriedade propriedade) {
-        if (diminuirSaldo(propriedade.getPreco())) {
-            propriedade.setDono(this);
-            addCarta(propriedade);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean pagarAluguel(Propriedade propriedade) {
-        if (diminuirSaldo(propriedade.calcularAluguel())) {
-            propriedade.getDono().aumentarSaldo(propriedade.calcularAluguel());
-            return true;
-        }
-        return false;
-    }
-
-    /* Método toString
-        Retorna uma string contendo os dados do jogador
-    */
     public String toString() {
         if (peca == null) {
             return "Nome: " + this.nome + "\n" +
@@ -153,5 +107,72 @@ public class Jogador {
                     "Posição no tabuleiro: " + this.peca.getPosicao() + "\n" +
                     "Saldo do jogador: " + this.getDinheiro();
         }
+    }
+
+    /**
+     * Adiciona uma carta ao jogador.
+     * @param carta - carta a ser adicionada
+     * @return boolean - retorna se a carta foi adicionada ou não
+     */
+    public void addCarta(Carta carta){
+        cartas.add(carta);
+    }
+
+    /**
+     * Remove uma carta do jogador.
+     * @param carta - carta a ser removida
+     * @return boolean - retorna se a carta foi removida ou não
+     */
+    public boolean removeCarta(Carta carta){
+        return cartas.remove(carta);
+    }
+
+    /**
+     * Adiciona o valor informado ao saldo.
+     * @param valor - int que representa dinheiro
+     */
+    public void aumentarSaldo(int valor) {
+        setDinheiro(dinheiro + valor);
+    }
+
+    /**
+     * Remove o valor informado do saldo se for possível.
+     * @param valor - int que representa dinheiro
+     * @return boolean - retorna se foi possível remover do saldo ou não
+     */
+    public boolean diminuirSaldo(int valor) {
+        if (dinheiro >= valor) {
+            setDinheiro(dinheiro - valor);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Tenta comprar uma propriedade com o saldo do jogador.
+     * @param propriedade - propriedade a ser comprada
+     * @return boolean - retorna se foi possível comprar a propriedade ou não
+     */
+    public boolean comprarPropriedade(Propriedade propriedade) {
+        if (diminuirSaldo(propriedade.getPreco())) {
+            propriedade.setDono(this);
+            addCarta(propriedade);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Tenta pagar o aluguel de uma propriedade com o saldo do jogador.
+     * Aumenta o saldo do dono da propriedade.
+     * @param propriedade - propriedade que se deve pagar o aluguel
+     * @return boolean - retorna se foi possível pagar o aluguel ou não
+     */
+    public boolean pagarAluguel(Propriedade propriedade) {
+        if (diminuirSaldo(propriedade.calcularAluguel())) {
+            propriedade.getDono().aumentarSaldo(propriedade.calcularAluguel());
+            return true;
+        }
+        return false;
     }
 }

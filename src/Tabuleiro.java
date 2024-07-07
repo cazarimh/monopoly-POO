@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Tabuleiro {
+public class Tabuleiro implements Salvavel{
     private static Random gerador = new Random();
 
     public static final Carta inicio = new Carta("Início");
@@ -67,11 +67,12 @@ public class Tabuleiro {
         return ordem;
     }
 
-    /* Método infos
-        Retorna informações da partida:
-            Todos os jogadores no tabuleiro
-            Todas as propriedades no tabuleiro
-    */
+    /**
+     * Retorna as informações gerais da partida.
+     *  - Jogadores
+     *  - Propriedades e seus respectivos donos
+     * @return infos - String com as informações da partida
+     */
     public static String infos(){
         String infos = "--- JOGADORES ---\n";
         for (Jogador jogador : jogadores){
@@ -86,10 +87,11 @@ public class Tabuleiro {
         return infos;
     }
 
-    /* Método addJogador
-        Retorna true se há menos de 6 jogadores na partida e se o jogador a ser adicionado nao foi adicionado ainda
-        Caso contrário, retorna false
-    */
+    /**
+     * Adiciona um jogador ao tabuleiro.
+     * @param jogador - jogador a ser adicionado
+     * @return boolean - retorna se o jogador foi adicionado ou não
+     */
     public static boolean addJogador(Jogador jogador) {
         if (jogadores.size() < 6 && !jogadores.contains(jogador)) {
             jogadores.add(jogador);
@@ -98,18 +100,20 @@ public class Tabuleiro {
         return false;
     }
 
-    /* Método removeJogador
-        Retorna true se o jogador a ser removido estiver na partida
-        Caso contrário, retorna false
-    */
+    /**
+     * Remove um jogador do tabuleiro.
+     * @param jogador - jogador a ser removido
+     * @return boolean - retorna se o jogador foi removido ou não
+     */
     public static boolean removeJogador(Jogador jogador){
         return ordem.remove(jogador);
     }
 
-    /* Método addPropriedade
-        Retorna true se há menos de 28 propriedades na partida e se a propriedade a ser adicionado nao foi adicionada ainda
-        Caso contrário, retorna false
-    */
+    /**
+     * Adiciona uma propriedade ao tabuleiro.
+     * @param propriedade - propriedade a ser adicionada
+     * @return boolean - retorna se a propriedade foi adicionada ou não
+     */
     public static boolean addPropriedade(Propriedade propriedade) {
         if (propriedades.size() < 28 && !propriedades.contains(propriedade)) {
             propriedades.add(propriedade);
@@ -118,18 +122,20 @@ public class Tabuleiro {
         return false;
     }
 
-    /* Método removePropriedade
-        Retorna true se a propriedade a ser removida estiver na partida
-        Caso contrário, retorna false
-    */
+    /**
+     * Remove uma propriedade do tabuleiro.
+     * @param propriedade - propriedade a ser removida
+     * @return boolean - retorna se a propriedade foi removida ou não
+     */
     public static boolean removePropriedade(Propriedade propriedade) {
         return propriedades.remove(propriedade);
     }
 
-    /* Método addCartaSorte
-        Retorna true se há menos de 30 cartas de sorte na partida e se a carta a ser adicionado nao foi adicionada ainda
-        Caso contrário, retorna false
-    */
+    /**
+     * Adiciona uma carta de sorte ao tabuleiro.
+     * @param carta - carta a ser adicionada
+     * @return boolean - retorna se a carta foi adicionada ou não
+     */
     public static boolean addCartaSorte(CartaSorte carta) {
         if (cartasSorte.size() < 30 && !cartasSorte.contains(carta)) {
             cartasSorte.add(carta);
@@ -138,14 +144,21 @@ public class Tabuleiro {
         return false;
     }
 
-    /* Método removeCartaSorte
-        Retorna true se a carta a ser removida estiver na partida
-        Caso contrário, retorna false
-    */
+    /**
+     * Remove uma carta de sorte do tabuleiro.
+     * @param carta - carta a ser removida
+     * @return boolean - retorna se a carta foi removida ou não
+     */
     public static boolean removeCartaSorte(CartaSorte carta) {
         return cartasSorte.remove(carta);
     }
 
+
+    /**
+     * Posiciona todas as propriedades no tabuleiro.
+     * Para cada propriedade, há umma casa de Sorte ou Revés.
+     * Adiciona a casa Início no começo e a casa Férias no meio.
+     */
     public static void montarCasas() {
         casasTabuleiro.add(inicio);
 
@@ -163,6 +176,9 @@ public class Tabuleiro {
         casasTabuleiro.add(casasTabuleiro.size()/2, ferias);
     }
 
+    /**
+     * Sorteia a ordem dos jogadores.
+     */
     public static void defineOrdem() {
         ArrayList<Jogador> listaAux = new ArrayList<>(jogadores);
         int jogadoresParaSortear = listaAux.size();
@@ -175,20 +191,31 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Retorna o jogador atual.
+     * @return jogadorAtual - objeto da classe Jogador
+     */
     public static Jogador jogadorAtual() {
         return ordem.get(indiceAtual);
     }
 
-    public static Jogador proxJogador() {
+    /**
+     * Lógica para atualizar o índice atual da ordem.
+     */
+    public static void proxJogador() {
         int quantidadeJogadores = ordem.size();
         int indiceMax = quantidadeJogadores - 1;
         if (indiceAtual == indiceMax){
             indiceAtual = 0;
-            return ordem.get(indiceAtual);
+            return;
         }
-        return ordem.get(++indiceAtual);
+        ++indiceAtual;
     }
 
+    /**
+     * Retorna a carta do topo do baralho embaralhado.
+     * @return cartaSorteada - objeto da classe CartaSorte
+     */
     public static CartaSorte distribuirCartas() {
         ArrayList<CartaSorte> listaAux = new ArrayList<>(cartasSorte);
         ArrayList<CartaSorte> cartasEmbaralhadas = new ArrayList<CartaSorte>();
@@ -204,6 +231,12 @@ public class Tabuleiro {
         return cartasEmbaralhadas.getFirst();
     }
 
+    /**
+     * Transfere o saldo do jogador falido por completo ao dono da propriedade.
+     * Transfere todas suas propriedades de volta ao banco e cartas de sorte de volta ao baralho.
+     * @param jogador - jogador que faliu
+     * @param propriedade - propriedade em que o jogador caiu antes de falir
+     */
     public static void falirJogador(Jogador jogador, Propriedade propriedade) {
         int saldo = jogador.getDinheiro();
         ArrayList<Carta> cartas = jogador.getCartas();
@@ -223,6 +256,10 @@ public class Tabuleiro {
         propriedade.getDono().aumentarSaldo(saldo);
     }
 
+    /**
+     * Verifica se existe só um jogador na partida ou se um jogador possui todas as propriedades.
+     * @return vencedor - objeto da classe Jogador
+     */
     public static Jogador verificaVencedor() {
         if (ordem.size() == 1) {
             return ordem.getFirst();
@@ -237,6 +274,12 @@ public class Tabuleiro {
         }
     }
 
+    /**
+     * Salva as informações da partida em um arquivo de texto log.txt.
+     * @param arquivo - caminho do arquivo
+     * @param vencedor - jogador que venceu a partida
+     * @throws IOException
+     */
     public static void salvaLog(String arquivo, Jogador vencedor) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo))) {
             writer.write(Tabuleiro.infos());

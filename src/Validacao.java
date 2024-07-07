@@ -2,9 +2,11 @@ import java.util.Scanner;
 
 public class Validacao {
 
-    /* Método validarCPF
-        Verifica se o cpf informado é válido
-    */
+    /**
+     * Verifica se o cpf informado é válido.
+     * @param cpf
+     * @return boolean
+     */
     public static boolean validarCPF(String cpf) {
         cpf = cpf.replaceAll("\\.", "");
         cpf = cpf.replaceAll("-", "");
@@ -27,9 +29,11 @@ public class Validacao {
         return false;
     }
 
-    /* Método digitoVerificador
-        Calcula o dígito verificador esperado para uma sequência de 9 números do cpf
-    */
+    /**
+     * Calcula o dígito verificador do cpf informado.
+     * @param cpf
+     * @return digitoVerificador
+     */
     private static String digitoVerificador(String cpf) {
         int dezenaVerif, unidadeVerif, soma = 0;
 
@@ -63,20 +67,20 @@ public class Validacao {
         return dezenaVerif + "" + unidadeVerif;
     }
 
-    /* Método validarEmail
-        Verifica se o email informado é válido
-        Requisitos:
-            Parte do usuário:
-            - Máximo de 20 caracteres
-            - Começar com letras
-            - Não terminar com caracteres especiais
-
-            - Separação entre usuário e domínio com @
-
-            Parte do domínio:
-            - Máximo de 20 caracteres
-            - Possuir o domínio de nível superior (.com, .br, etc)
-    */
+    /**
+     * Verifica se o email informado é válido
+     * Requisitos:
+     * Parte do usuário:
+     *  - Máximo de 20 caracteres
+     *  - Começar com letras
+     *  - Não terminar com caracteres especiais
+     *  - Separação entre usuário e domínio com @
+     * Parte do domínio:
+     *  - Máximo de 20 caracteres
+     *  - Possuir o domínio de nível superior (.com, .br, etc)
+     * @param email - email a ser analisado
+     * @return boolean - retorna se o email é válido ou não
+     */
     public static boolean validarEmail(String email) {
         email = email.toLowerCase();
 
@@ -102,6 +106,12 @@ public class Validacao {
         return false;
     }
 
+    /**
+     * Repete a pedida de entrada até que seja inserido uma entrada do tipo informado.
+     * @param mensagem - mensagem a ser mostrada no terminal pedindo informações
+     * @param tipo - tipo da variável que se deseja obter (int ou double)
+     * @return entrada - entrada válida
+     */
     public static String receberEntrada(String mensagem, String tipo) {
 
         Scanner input = new Scanner(System.in);
@@ -118,6 +128,12 @@ public class Validacao {
         return entrada;
     }
 
+    /**
+     * Retorna se a entrada pode ser convertida no tipo informado.
+     * @param entrada - String a ser testada para conversão
+     * @param tipo - tipo da variável que se deseja obter (int ou double)
+     * @return boolean
+     */
     private static boolean validarEntrada(String entrada, String tipo) {
         if (tipo.equals("int")) {
             try {
@@ -139,6 +155,11 @@ public class Validacao {
         return false;
     }
 
+    /**
+     * Retorna se a carta informada é uma propriedade ou não.
+     * @param casaAtual - carta a ser analisada
+     * @return booelan
+     */
     public static boolean isPropriedade(Carta casaAtual) {
         try {
             Propriedade p = (Propriedade) casaAtual;
@@ -148,6 +169,11 @@ public class Validacao {
         }
     }
 
+    /**
+     * Retorna se a propriedade informada é um terreno ou não.
+     * @param propriedadeAtual - propriedade a ser analisada
+     * @return boolean
+     */
     public static boolean isTerreno(Propriedade propriedadeAtual) {
         try {
             Terreno t = (Terreno) propriedadeAtual;

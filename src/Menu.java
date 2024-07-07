@@ -6,6 +6,13 @@ public class Menu {
     private static ArrayList<Jogador> jogadoresCriados = new ArrayList<Jogador>();
     private static ArrayList<Propriedade> propriedadesCriadas = new ArrayList<Propriedade>();
 
+    /**
+     * Menu inicial de configurações da partida.
+     *  - Cria, adiciona e remove jogadores
+     *  - Cria, adiciona e remove propriedades
+     *  - Cria e exclui cartas de sorte
+     * @throws IOException
+     */
     public static void menuInicial() throws IOException {
 
         Scanner input = new Scanner(System.in);
@@ -245,9 +252,10 @@ public class Menu {
         }
     }
 
-    /* Método criarJogador
-        Chama o construtor de um Jogador e atribui seus valores iniciais
-    */
+    /**
+     * Chama o construtor de um Jogador e atribui seus valores iniciais.
+     * @return jogador - jogador criado
+     */
     public static Jogador criarJogador() {
 
         Scanner input = new Scanner(System.in);
@@ -267,9 +275,10 @@ public class Menu {
         return Validacao.validarCPF(cpf) && Validacao.validarEmail(email) ? new Jogador(nome, cpf, email, foto) : null;
     }
 
-    /* Método criarServico
-        Chama o construtor de um Serviço e atribui seus valores iniciais
-    */
+    /**
+     * Chama o construtor de um ServicoPublico e atribui seus valores iniciais.
+     * @return servicoPublico - servicoPublico criado
+     */
     public static ServicoPublico criarServico() {
 
         Scanner input = new Scanner(System.in);
@@ -287,9 +296,10 @@ public class Menu {
         return new ServicoPublico(nome, descricao, preco, aluguel);
     }
 
-    /* Método criarEstacao
-        Chama o construtor de uma Estação e atribui seus valores iniciais
-    */
+    /**
+     * Chama o construtor de uma Estacao e atribui seus valores iniciais.
+     * @return estacao - estacao criada
+     */
     public static Estacao criarEstacao() {
 
         Scanner input = new Scanner(System.in);
@@ -307,9 +317,10 @@ public class Menu {
         return new Estacao(nome, descricao, preco, aluguel);
     }
 
-    /* Método criarTerreno
-        Chama o construtor de um Terreno e atribui seus valores iniciais
-    */
+    /**
+     * Chama o construtor de um Terreno e atribui seus valores iniciais.
+     * @return terreno - terreno criado
+     */
     public static Terreno criarTerreno() {
 
         Scanner input = new Scanner(System.in);
@@ -331,9 +342,10 @@ public class Menu {
         return new Terreno(nome, descricao, preco, aluguel, valorCasa, valorHotel);
     }
 
-    /* Método criarCartaSorte
-        Chama o construtor de uma Carta de Sorte e atribui seus valores iniciais
-    */
+    /**
+     * Chama o construtor de uma CartaSorte e atribui seus valores iniciais.
+     * @return cartaSorte - cartaSorte criada
+     */
     public static CartaSorte criarCartaSorte() {
 
         Scanner input = new Scanner(System.in);
@@ -383,9 +395,10 @@ public class Menu {
         return new CartaSorte(descricao, movimento, valor, acao, tempo, restricao, tipo);
     }
 
-    /* Método criarPeca
-        Chama o construtor de uma Peça e atribui seus valores iniciais
-    */
+    /**
+     * Chama o construtor de uma Peca e atribui seus valores iniciais.
+     * @return peca - peca criada
+     */
     public static Peca criarPeca() {
 
         Scanner input = new Scanner(System.in);
@@ -396,9 +409,10 @@ public class Menu {
         return new Peca(cor);
     }
 
-    /* Método iniciarJogo
-        Atribui as peças a cada jogador, e inicia o jogo
-    */
+    /**
+     * Inicia o jogo e implementa todas as lógicas para o funcionamento do mesmo.
+     * @throws IOException
+     */
     public static void iniciarJogo() throws IOException {
 
         Scanner input = new Scanner(System.in);

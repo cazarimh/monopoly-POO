@@ -76,6 +76,10 @@ public class CartaSorte extends Carta{
         return tipo;
     }
 
+    /**
+     * Executa a ação designada pela carta.
+     * @param jogador - jogador a sofrer a ação
+     */
     public void executaAcao(Jogador jogador) {
         if (movimento == 0) {
             if (tipo == TipoCarta.SORTE) {

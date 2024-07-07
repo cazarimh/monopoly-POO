@@ -5,9 +5,6 @@ public class ServicoPublico extends Propriedade {
         super(nome, descricao, preco, aluguel);
     }
 
-    /* Método toString
-        Retorna uma string contendo os dados do Serviço Público
-    */
     public String toString(){
         String info = "--- " + getNome() + " ---" + "\n" +
                 "Preço: R$ " + getPreco() + "\n" +
@@ -16,9 +13,10 @@ public class ServicoPublico extends Propriedade {
         return getDono() == null ? info : info + "\nProprietário: " + getDono().getNome();
     }
 
-    /* Método calcularAluguel
-        Retorna o aluguel multiplicado pelo valor dos dados
-    */
+    /**
+     * Multiplica o valor base do aluguel com a soma dos dados.
+     * @return aluguel - valor calculado do aluguel
+     */
     public int calcularAluguel(){
         return Tabuleiro.getValorDados() * this.getAluguel();
     }

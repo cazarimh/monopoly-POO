@@ -44,9 +44,6 @@ public class Terreno extends Propriedade{
         this.hotel = isHotel;
     }
 
-    /* Método toString
-        Retorna uma string contendo os dados do Terreno
-    */
     public String toString(){
         String info = "--- " + getNome() + " ---\n" +
                 "Preço: R$ " + getPreco() + "\n" +
@@ -54,14 +51,14 @@ public class Terreno extends Propriedade{
                 "Comprar Hotel: R$ " + getValorHotel() + "\n" +
                 "Aluguel: R$ ";
 
-        return getDono() == null ? info + getAluguel() : info + calcularAluguel() + "\nProprietário: " + getDono().getNome();
+        return getDono() == null ? info + getAluguel() : info + calcularAluguel() + "\nProprietário: " + getDono().getNome() + "\nQuantidade de Casas: " + getNumeroCasas();
     }
 
-    /* Método comprarCasa
-        Verifica se a quantidade de casas está dentro do limite (máx 4)
-            se sim, soma um no numero de casas (numeroCasas) e retorna true
-            senão, retorna false
-    */
+    /**
+     * Verifica se é possível comprar uma casa no terreno.
+     * @param comprador - jogador que está tentando comprar a casa
+     * @return boolean - retorna se a casa foi comprada ou não
+     */
     public boolean comprarCasa(Jogador comprador){
         if (this.getDono() == comprador && comprador.getDinheiro() >= valorCasa && numeroCasas < 4) {
             int saldo = comprador.getDinheiro() - valorCasa;
@@ -72,11 +69,11 @@ public class Terreno extends Propriedade{
         return false;
     }
 
-    /* Método comprarHotel
-        Verifica se a quantidade de casas está no limite (4 casas para virar hotel)
-            se sim, soma um no numero de casas (numeroCasas), implementa um hotel (setHotel(true)) e retorna true
-            senão, retorna false
-    */
+    /**
+     * Verifica se é possível comprar um hotel no terreno.
+     * @param comprador - jogador que está tentando comprar o hotel
+     * @return boolean - retorna se o hotel foi comprado ou não
+     */
     public boolean comprarHotel(Jogador comprador){
         if (this.getDono() == comprador && comprador.getDinheiro() >= valorHotel && numeroCasas == 4){
             int saldo = comprador.getDinheiro() - valorHotel;
@@ -88,10 +85,13 @@ public class Terreno extends Propriedade{
         return false;
     }
 
-    /* Método calcularAluguel
-        Recebe o valor base do aluguel e o retorna multiplicado
-        pela quantidade de casas ou pelo valor do hotel
-    */
+    /**
+     * Multiplica o valor base do aluguel de acordo com a quantidade de casas.
+     *  - 1 casa -> aluguel * 2
+     *  - 2 casas -> aluguel * 3
+     *  - hotel -> aluguel * 6
+     * @return aluguel - valor calculado do aluguel
+     */
     public int calcularAluguel(){
         return hotel ? (6 * getAluguel()) : ((this.numeroCasas+1) * getAluguel());
     }

@@ -18,6 +18,10 @@ public class Dados {
         return ultimaSomaDados;
     }
 
+    /**
+     * Sorteia dois valores aleatórios como valores dos dados.
+     * @return somaDados - int que representa a soma dos dados
+     */
     public static int rolarDados() {
         valorDado1 = gerador.nextInt(1, 7);
         valorDado2 = gerador.nextInt(1, 7);
